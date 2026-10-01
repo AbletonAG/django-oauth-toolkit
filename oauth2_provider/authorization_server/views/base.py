@@ -10,7 +10,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, QueryDict
 from django.shortcuts import resolve_url
 from django.urls.exceptions import NoReverseMatch
-from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.debug import sensitive_post_parameters
@@ -330,7 +329,7 @@ class AuthorizationView(BaseAuthorizationView, FormView):
                 tokens = (
                     get_access_token_model()
                     .objects.filter(
-                        user=request.user, application=kwargs["application"], expires__gt=timezone.now()
+                        user=request.user, application=kwargs["application"]
                     )
                     .all()
                 )
